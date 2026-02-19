@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: codearch-ollama
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    networks:
+      - codearch
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: codearch-api
+    environment:
+      DATABASE_URL: sqlite:///./codearch.db
+      OPENAI_API_KEY: ollama
+      OPENAI_BASE_URL: http://ollama:11434/v1
+      OPENAI_MODEL: deepseek-coder-v2:16b
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      VECTOR_DB_DIR: /app/vector_db
+    volumes:
+      - backend_data:/app/vector_db
+      - backend_db:/app/codearch.db
+    ports:
+      - "8000:8000"
+    depends_on:
+      - ollama
+    networks:
+      - codearch
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: codearch-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - codearch
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+  backend_data:
+  backend_db:
+
+networks:
+  codearch:
+    driver: bridge

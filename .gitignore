@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv/
+
+# Node
+node_modules/
+dist/
+
+# Environment
+.env
+
+# Database
+*.db
+
+# Vector store
+vector_db/
+
+# Cloned repos
+cloned_repos/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+test_chroma_db/
+test_output.log
