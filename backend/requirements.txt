@@ -1,0 +1,33 @@
+# FastAPI & Server
+fastapi
+uvicorn[standard]
+python-multipart
+websockets
+
+# Database
+sqlalchemy
+aiosqlite
+alembic
+
+# Code Parsing
+tree-sitter
+tree-sitter-python
+tree-sitter-javascript
+
+# LLM (OpenAI-compatible client for Ollama)
+openai>=1.0.0
+
+# Local Embeddings & Vector Search
+sentence-transformers
+numpy
+
+# GitHub Integration
+PyGithub
+gitpython
+
+# Utilities
+pydantic
+pydantic-settings
+python-dotenv
+httpx
+aiofiles
